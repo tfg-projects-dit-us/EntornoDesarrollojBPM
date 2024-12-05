@@ -1,0 +1,50 @@
+services:
+  hapifhir:
+    image: hapiproject/hapi:latest
+    container_name: hapifhir
+    ports:
+      - 8888:8888
+    volumes:
+      - ./application.yaml:/app/config/application.yaml
+    restart: unless-stopped
+
+  businesscentral:
+    image: jboss/jbpm-server-full:latest
+    container_name: businesscentral
+    volumes:
+      - ./standalone.xml:/opt/jboss/wildfly/standalone/configuration/standalone.xml
+      - ./settings.xml:/opt/jboss/wildfly/standalone/configuration/settings.xml
+    ports:
+      - 8080:8080
+      - 8001:8001
+    restart: unless-stopped
+  reposilite:
+    image: dzikoysk/reposilite:3.2.0
+    container_name: reposilite
+    #
+    # To build from sources:
+    #
+    # image: reposilite:3.5.20
+    # build:
+    #  context: .
+    #  dockerfile: Dockerfile
+    ports:
+      - ${PORT}:${PORT}
+    env_file:
+      - .env
+    environment:
+      - JAVA_OPTS=-Xmx${MEMORY} ${JAVA_COMPOSE_OPTS}
+      - REPOSILITE_OPTS=--port ${PORT} --token ${TOKEN} ${REPOSILITE_COMPOSE_OPTS} 
+    volumes:
+      - ./reposilite-data:/app/data
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+volumes:
+  reposilite-data: {}
+
+
+
+
+
+

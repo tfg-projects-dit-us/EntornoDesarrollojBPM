@@ -1,0 +1,49 @@
+<!-- file for the configuration of the management of the local reposilite (maven repo) in business central 
+It is also necesary to configure the path to this file in standalone.xml -->
+<settings>
+	<repositories>
+		<!-- repository available from the initial configuration (reposilite-data volume, folder) -->
+		<repository>
+			<id>reposilite-kie</id>
+			<name>Reposilite Repository</name>
+			<url>http://reposilite:8081/kie</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+
+		<!-- Repositorio Maven Central -->
+		<repository>
+			<id>central</id>
+			<url>https://repo.maven.apache.org/maven2</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<!-- Repositorios de plugins -->
+
+		<pluginRepository>
+			<id>central-plugins</id>
+			<url>https://repo.maven.apache.org/maven2</url>
+		</pluginRepository>
+	</pluginRepositories>
+	<servers>
+		<server>
+			<id>reposilite-kie</id>
+			<!-- user a token to access the local reposilite, included in the initial reposilite configuration (reposilite-data volume, folder), 
+			with management privileges in order to create other tokens as necesary-->
+			<username>jbpm</username>
+			<password>Qkjbf2gGjBIIufQJD79K0Js7KLlINal2l4AmchNJ74HUP67NRBfmgaL+c7hpET+q</password>
+		</server>
+	</servers>
+
+</settings>
